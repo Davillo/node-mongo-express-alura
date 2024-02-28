@@ -11,6 +11,16 @@ class BooksController {
         }
     }
 
+    static async search(req, res) {
+        try {
+            const publisher = req.query.publisher;
+            const booksList = await bookModel.find({publisher: publisher});
+            res.status(200).json(booksList);    
+        } catch (error) {
+            res.status(500).json({message: `${error.message} - Falha ao buscar livros`});
+        }
+    }
+
     static async store(req, res) {
         const bookData = req.body;
         try {
